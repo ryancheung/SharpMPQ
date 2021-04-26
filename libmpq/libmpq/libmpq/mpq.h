@@ -38,6 +38,8 @@ extern "C" {
 
 #if defined(__GNUC__) && (__GNUC__ >= 4)
 # define LIBMPQ_API __attribute__((visibility("default")))
+#elif defined(_MSC_VER)
+# define LIBMPQ_API __declspec(dllexport)
 #else
 # define LIBMPQ_API
 #endif
