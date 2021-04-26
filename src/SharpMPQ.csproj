@@ -6,4 +6,25 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="..\Dependencies\libmpq\windows\x86\mpq.dll">
+      <Link>runtimes\win-x86\native\mpq.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Dependencies\libmpq\windows\x64\mpq.dll">
+      <Link>runtimes\win-x64\native\mpq.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="..\Dependencies\libmpq\osx\libmpq.dylib">
+      <Link>runtimes\osx\native\libmpq.dylib</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+
+    <Content Include="..\Dependencies\libmpq\linux\x64\libmpq.so">
+      <Link>runtimes\linux-x64\native\libmpq.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
