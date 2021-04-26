@@ -78,5 +78,19 @@ namespace SharpMPQ
             return handle;
         }
 
+        [DllImport(MPQLibraryName, CallingConvention = CallingConvention.StdCall, EntryPoint = "libmpq__version")]
+        private static extern IntPtr _libmpq__version();
+        public static string? libmpq__version()
+        {
+            return Marshal.PtrToStringAnsi(_libmpq__version());
+        }
+
+        /* string error message for a libmpq return code. */
+        [DllImport(MPQLibraryName, CallingConvention = CallingConvention.StdCall, EntryPoint = "libmpq__strerror")]
+        private static extern IntPtr _libmpq__strerror(int return_code);
+        public static string? libmpq__strerror(int return_code)
+        {
+            return Marshal.PtrToStringAnsi(_libmpq__strerror(return_code));
+        }
     }
 }
