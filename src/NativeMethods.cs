@@ -78,6 +78,19 @@ namespace SharpMPQ
             return handle;
         }
 
+        public const int LIBMPQ_ERROR_OPEN = -1; /* open error on file. */
+        public const int LIBMPQ_ERROR_CLOSE = -2; /* close error on file. */
+        public const int LIBMPQ_ERROR_SEEK = -3; /* lseek error on file. */
+        public const int LIBMPQ_ERROR_READ = -4; /* read error on file. */
+        public const int LIBMPQ_ERROR_WRITE = -5; /* write error on file. */
+        public const int LIBMPQ_ERROR_MALLOC = -6; /* memory allocation error. */
+        public const int LIBMPQ_ERROR_FORMAT = -7; /* format errror. */
+        public const int LIBMPQ_ERROR_NOT_INITIALIZED = -8;	/* libmpq__init() wasn't called. */
+        public const int LIBMPQ_ERROR_SIZE = -9; /* buffer size is to small. */
+        public const int LIBMPQ_ERROR_EXIST = -10; /* file or block does not exist in archive. */
+        public const int LIBMPQ_ERROR_DECRYPT = -11; /* we don't know the decryption seed. */
+        public const int LIBMPQ_ERROR_UNPACK = -12;	/* error on unpacking file. */
+
         [DllImport(MPQLibraryName, CallingConvention = CallingConvention.StdCall, EntryPoint = "libmpq__version")]
         private static extern IntPtr _libmpq__version();
         public static string? libmpq__version()
@@ -92,5 +105,20 @@ namespace SharpMPQ
         {
             return Marshal.PtrToStringAnsi(_libmpq__strerror(return_code));
         }
+
+        [DllImport(MPQLibraryName, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public static extern int libmpq__archive_open(ref IntPtr mpq_archive, [MarshalAs(UnmanagedType.LPStr)] string mpq_filename, long archive_offset);
+
+        [DllImport(MPQLibraryName, CallingConvention = CallingConvention.StdCall)]
+        public static extern int libmpq__archive_close(IntPtr mpq_archive);
+
+        [DllImport(MPQLibraryName, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
+        public static extern int libmpq__file_number(IntPtr mpq_archive, [MarshalAs(UnmanagedType.LPStr)] string filename, ref uint number);
+
+        [DllImport(MPQLibraryName, CallingConvention = CallingConvention.StdCall)]
+        public static extern int libmpq__file_size_unpacked(IntPtr mpq_archive, uint file_number, ref long unpacked_size);
+
+        [DllImport(MPQLibraryName, CallingConvention = CallingConvention.StdCall)]
+        public static extern int libmpq__file_read(IntPtr mpq_archive, uint file_number, IntPtr out_buf, long out_size, ref long transferred);
     }
 }
