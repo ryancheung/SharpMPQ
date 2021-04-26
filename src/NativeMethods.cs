@@ -113,12 +113,12 @@ namespace SharpMPQ
         public static extern int libmpq__archive_close(IntPtr mpq_archive);
 
         [DllImport(MPQLibraryName, CallingConvention = CallingConvention.StdCall, CharSet = CharSet.Ansi)]
-        public static extern int libmpq__file_number(IntPtr mpq_archive, [MarshalAs(UnmanagedType.LPStr)] string filename, ref uint number);
+        public static extern int libmpq__file_number(IntPtr mpq_archive, [MarshalAs(UnmanagedType.LPStr)] string filename, out uint number);
 
         [DllImport(MPQLibraryName, CallingConvention = CallingConvention.StdCall)]
-        public static extern int libmpq__file_size_unpacked(IntPtr mpq_archive, uint file_number, ref long unpacked_size);
+        public static extern int libmpq__file_size_unpacked(IntPtr mpq_archive, uint file_number, out long unpacked_size);
 
         [DllImport(MPQLibraryName, CallingConvention = CallingConvention.StdCall)]
-        public static extern int libmpq__file_read(IntPtr mpq_archive, uint file_number, IntPtr out_buf, long out_size, ref long transferred);
+        public static extern int libmpq__file_read(IntPtr mpq_archive, uint file_number, IntPtr out_buf, long out_size, out long transferred);
     }
 }

@@ -73,9 +73,9 @@ namespace SharpMPQ.Tests
             IntPtr mpq = default;
             var result = libmpq__archive_open(ref mpq, mpqFilename, -1);
 
-            uint fileNum = 0;
+            uint fileNum;
             string dbcFileName = "DBFilesClient\\Map.dbc";
-            result = libmpq__file_number(mpq, dbcFileName, ref fileNum);
+            result = libmpq__file_number(mpq, dbcFileName, out fileNum);
 
             Assert.AreEqual(0, result);
             Assert.IsTrue(fileNum > 0);
@@ -88,12 +88,12 @@ namespace SharpMPQ.Tests
             IntPtr mpq = default;
             var result = libmpq__archive_open(ref mpq, mpqFilename, -1);
 
-            uint fileNum = 0;
+            uint fileNum;
             string dbcFileName = "DBFilesClient\\Map.dbc";
-            result = libmpq__file_number(mpq, dbcFileName, ref fileNum);
+            result = libmpq__file_number(mpq, dbcFileName, out fileNum);
 
-            long size = 0;
-            result = libmpq__file_size_unpacked(mpq, fileNum, ref size);
+            long size;
+            result = libmpq__file_size_unpacked(mpq, fileNum, out size);
 
             Assert.AreEqual(0, result);
             Assert.IsTrue(size > 0);
@@ -106,16 +106,16 @@ namespace SharpMPQ.Tests
             IntPtr mpq = default;
             var result = libmpq__archive_open(ref mpq, mpqFilename, -1);
 
-            uint fileNum = 0;
+            uint fileNum;
             string dbcFileName = "DBFilesClient\\Map.dbc";
-            result = libmpq__file_number(mpq, dbcFileName, ref fileNum);
+            result = libmpq__file_number(mpq, dbcFileName, out fileNum);
 
             long size = 0;
-            result = libmpq__file_size_unpacked(mpq, fileNum, ref size);
+            result = libmpq__file_size_unpacked(mpq, fileNum, out size);
 
             long transferred = 0;
             var buffer = Marshal.AllocHGlobal((int)size);
-            result = libmpq__file_read(mpq, fileNum, buffer, size, ref transferred);
+            result = libmpq__file_read(mpq, fileNum, buffer, size, out transferred);
             Marshal.FreeHGlobal(buffer);
 
             Assert.AreEqual(0, result);
