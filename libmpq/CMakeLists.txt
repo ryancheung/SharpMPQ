@@ -14,6 +14,15 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 endif()
 
+add_library(compile-option-interface INTERFACE)
+
+if(UNIX)
+  target_compile_options(compile-option-interface
+    INTERFACE
+      -fPIC
+      -Wno-attributes)
+endif()
+
 # An interface library to make the target features available to other targets
 add_library(feature-interface INTERFACE)
 
@@ -38,6 +47,7 @@ add_library(dependency-interface INTERFACE)
 
 target_link_libraries(dependency-interface
   INTERFACE
+    compile-option-interface
     feature-interface
     no-warning-interface)
 
